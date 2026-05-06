@@ -1,31 +1,16 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { locales, type Locale } from '@/lib/i18n/config';
+import { type Locale } from '@/lib/i18n/config';
 import { generateToolsListMetadata } from '@/lib/seo';
 import ToolsPageClient from './ToolsPageClient';
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
-  const t = await getTranslations({ locale: validLocale, namespace: 'metadata' });
-
-  return generateToolsListMetadata(validLocale, {
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations({ locale: 'en', namespace: 'metadata' });
+  return generateToolsListMetadata('en', {
     title: t('tools.title'),
     description: t('tools.description'),
   });
-}
-
-interface ToolsPageProps {
-  params: Promise<{ locale: string }>;
 }
 
 function ToolsPageFallback() {
@@ -38,18 +23,15 @@ function ToolsPageFallback() {
   );
 }
 
-export default async function ToolsPage({ params }: ToolsPageProps) {
-  const { locale } = await params;
-
-  // Enable static rendering
+export default async function ToolsPage() {
+  const locale: Locale = 'en';
   setRequestLocale(locale);
 
-  // Get localized content for tools
   const { tools } = await import('@/config/tools');
   const { getToolContent } = await import('@/config/tool-content');
 
   const localizedToolContent = tools.reduce((acc, tool) => {
-    const content = getToolContent(locale as Locale, tool.id);
+    const content = getToolContent(locale, tool.id);
     if (content) {
       acc[tool.id] = {
         title: content.title,
@@ -59,11 +41,9 @@ export default async function ToolsPage({ params }: ToolsPageProps) {
     return acc;
   }, {} as Record<string, { title: string; description: string }>);
 
-  // Note: searchParams are handled client-side in ToolsPageClient
-  // because static export doesn't support server-side searchParams
   return (
     <Suspense fallback={<ToolsPageFallback />}>
-      <ToolsPageClient locale={locale as Locale} localizedToolContent={localizedToolContent} />
+      <ToolsPageClient locale={locale} localizedToolContent={localizedToolContent} />
     </Suspense>
   );
 }

@@ -164,7 +164,7 @@ export function generateSoftwareApplicationSchema(
     '@type': 'SoftwareApplication',
     name: content.title,
     description: content.metaDescription,
-    url: `${siteConfig.url}/${locale}/tools/${tool.slug}`,
+    url: `${siteConfig.url}/pdf-tools/${tool.slug}`,
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Windows, macOS, Linux, iOS, Android, Chrome OS',
     offers: {
@@ -232,18 +232,6 @@ export function generateWebPageSchema(
 ): WebPageSchema {
   const languageMap: Record<Locale, string> = {
     en: 'en-US',
-    ja: 'ja-JP',
-    ko: 'ko-KR',
-    es: 'es-ES',
-    fr: 'fr-FR',
-    de: 'de-DE',
-    zh: 'zh-CN',
-    'zh-TW': 'zh-TW',
-    pt: 'pt-BR',
-    ar: 'ar-AR',
-    it: 'it-IT',
-    id: 'id-ID',
-    vi: 'vi-VN',
   };
 
   return {
@@ -251,7 +239,7 @@ export function generateWebPageSchema(
     '@type': 'WebPage',
     name: content.title,
     description: content.metaDescription,
-    url: `${siteConfig.url}/${locale}/tools/${tool.slug}`,
+    url: `${siteConfig.url}/pdf-tools/${tool.slug}`,
     inLanguage: languageMap[locale] || 'en-US',
     isPartOf: {
       '@type': 'WebSite',
@@ -301,7 +289,7 @@ export function generateWebSiteSchema(locale: Locale): WebSiteSchema {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${siteConfig.url}/${locale}/tools?q={search_term_string}`,
+        urlTemplate: `${siteConfig.url}/pdf-tools?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -367,8 +355,8 @@ export function generateToolPageStructuredData(
   const breadcrumb = generateBreadcrumbSchema(
     [
       { name: 'Home', path: '' },
-      { name: 'Tools', path: '/tools' },
-      { name: content.title, path: `/tools/${tool.slug}` },
+      { name: 'Tools', path: '/pdf-tools' },
+      { name: content.title, path: `/pdf-tools/${tool.slug}` },
     ],
     locale
   );

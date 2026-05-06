@@ -108,7 +108,7 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
   }, [searchResults, selectedIndex]);
 
   const navigateToTool = useCallback((slug: string) => {
-    router.push(`/${locale}/tools/${slug}`);
+    router.push(`/pdf-tools/${slug}`);
     setIsSearchOpen(false);
     setSearchQuery('');
     setSearchResults([]);
@@ -155,7 +155,7 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
   };
 
   const navItems = [
-    { href: `/${locale}/tools`, label: t('navigation.tools') },
+    { href: '/pdf-tools', label: t('navigation.tools') },
   ];
 
   return (

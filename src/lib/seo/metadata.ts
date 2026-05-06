@@ -144,7 +144,7 @@ export function generateBaseMetadata(options: PageMetadataOptions): Metadata {
  */
 export function generateToolMetadata(options: ToolMetadataOptions): Metadata {
   const { locale, tool, content } = options;
-  const path = `/tools/${tool.slug}`;
+  const path = `/pdf-tools/${tool.slug}`;
 
   // Enhance keywords with common PDF-related terms
   const enhancedKeywords = [
@@ -188,7 +188,7 @@ export function generateHomeMetadata(locale: Locale, translations?: { title: str
 export function generateToolsListMetadata(locale: Locale, translations?: { title: string; description: string }): Metadata {
   return generateBaseMetadata({
     locale,
-    path: '/tools',
+    path: '/pdf-tools',
     title: translations?.title || 'All PDF Tools',
     description: translations?.description || 'Browse all 67+ professional PDF tools. Merge, split, compress, convert, edit, and secure your PDF files for free.',
     keywords: ['PDF tools', 'all PDF tools', 'PDF editor', 'PDF converter', 'PDF merger', 'PDF splitter'],
@@ -251,22 +251,7 @@ export function generateContactMetadata(locale: Locale, translations?: { title: 
  * Convert locale to Open Graph locale format
  */
 export function getOpenGraphLocale(locale: Locale): string {
-  const ogLocaleMap: Record<Locale, string> = {
-    en: 'en_US',
-    ja: 'ja_JP',
-    ko: 'ko_KR',
-    es: 'es_ES',
-    fr: 'fr_FR',
-    de: 'de_DE',
-    zh: 'zh_CN',
-    'zh-TW': 'zh_TW',
-    pt: 'pt_BR',
-    ar: 'ar_AR',
-    it: 'it_IT',
-    id: 'id_ID',
-    vi: 'vi_VN',
-  };
-  return ogLocaleMap[locale] || 'en_US';
+  return 'en_US';
 }
 
 /**

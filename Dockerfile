@@ -17,7 +17,7 @@ WORKDIR /app
 # Use BuildKit cache mount to persist npm cache across builds
 COPY package.json package-lock.json ./
 RUN --mount=type=cache,target=/root/.npm \
-    npm ci --ignore-scripts
+    npm install --ignore-scripts
 
 # Copy source code
 COPY . .
