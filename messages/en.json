@@ -170,8 +170,8 @@
     }
   },
   "toolsPage": {
-    "title": "Professional PDF Tools",
-    "subtitle": "{count}+ free, secure, and easy-to-use tools for all your PDF needs.",
+    "title": "Your PDFs stay on your device.",
+    "subtitle": "Built so your files aren't spied on. Everything runs in WebAssembly — nothing ever leaves your browser.",
     "filters": "Filters",
     "allTools": "All Tools",
     "clearAll": "Clear all",

@@ -4,10 +4,9 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { Search, Menu, X, Command, Github } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
 import { type Locale } from '@/lib/i18n/config';
 import { Button } from '@/components/ui/Button';
-import { RecentFilesDropdown } from '@/components/common/RecentFilesDropdown';
 import { searchTools, SearchResult } from '@/lib/utils/search';
 import { getToolContent } from '@/config/tool-content';
 import { getAllTools } from '@/config/tools';
@@ -156,11 +155,7 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
   };
 
   const navItems = [
-    { href: `/${locale}`, label: t('navigation.home') },
     { href: `/${locale}/tools`, label: t('navigation.tools') },
-    { href: `/${locale}/workflow`, label: t('navigation.workflow') || 'Workflow' },
-    { href: `/${locale}/about`, label: t('navigation.about') },
-    { href: `/${locale}/faq`, label: t('navigation.faq') },
   ];
 
   return (
@@ -173,32 +168,8 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
     >
       <div className="container mx-auto px-4">
         <div className="flex h-20 items-center justify-between">
-          {/* Logo and Brand */}
-          <div className="flex flex-1 items-center gap-2">
-            <Link
-              href={`/${locale}`}
-              className="group flex items-center gap-2.5 text-xl font-bold text-[hsl(var(--color-foreground))] hover:opacity-90 transition-opacity"
-              aria-label={`${t('brand')} - ${t('navigation.home')}`}
-            >
-              <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[hsl(var(--color-primary))] to-[hsl(var(--color-accent))] shadow-lg shadow-primary/25 transition-transform group-hover:scale-105">
-                <svg
-                  className="h-5 w-5 text-white"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                  <polyline points="14 2 14 8 20 8" />
-                </svg>
-              </div>
-              <span className="text-xl tracking-tight" data-testid="brand-name">
-                {t('brand')}
-              </span>
-            </Link>
-          </div>
+          {/* Spacer */}
+          <div className="flex flex-1 items-center gap-2" />
 
           {/* Desktop Navigation */}
           <nav
@@ -305,33 +276,8 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
               </div>
             )}
 
-            {/* Recent Files Dropdown */}
-            <RecentFilesDropdown
-              locale={locale}
-              translations={{
-                title: t('recentFiles.title') || 'Recent Files',
-                empty: t('recentFiles.empty') || 'No recent files',
-                clearAll: t('recentFiles.clearAll') || 'Clear all',
-                processedWith: t('recentFiles.processedWith') || 'Processed with',
-              }}
-            />
-
-            {/* GitHub Repository Link */}
-            <a
-              href="https://github.com/PDFCraftTool/pdfcraft"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:flex items-center justify-center h-9 w-9 rounded-lg text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))] hover:bg-[hsl(var(--color-muted))/0.5] transition-all"
-              aria-label="GitHub Repository"
-            >
-              <Github className="h-5 w-5" aria-hidden="true" />
-            </a>
-
             {/* Theme Toggle */}
             <ThemeToggle />
-
-            {/* Language Selector placeholder */}
-            <div id="language-selector-slot" />
 
             {/* Mobile Menu Toggle */}
             <Button
@@ -372,19 +318,6 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
                   </Link>
                 </li>
               ))}
-              {/* GitHub Link in Mobile Menu */}
-              <li>
-                <a
-                  href="https://github.com/PDFCraftTool/pdfcraft"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-4 py-3 text-base font-medium text-[hsl(var(--color-foreground))] hover:bg-[hsl(var(--color-muted))] rounded-lg transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <Github className="h-5 w-5" aria-hidden="true" />
-                  GitHub
-                </a>
-              </li>
             </ul>
           </nav>
         )}
